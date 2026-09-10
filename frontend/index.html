@@ -10,42 +10,118 @@
 </head>
 
 <body>
+    <main class="container">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">Student services desk</p>
+                <h1>CampusAI</h1>
+                <p class="subtitle">A clear, quick way to get help with campus questions.</p>
+            </div>
+            <div class="header-mark" aria-hidden="true">CA</div>
+        </header>
 
-    <div class="container">
+        <section class="section-card assistant-section" aria-labelledby="assistant-title">
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">01 / Student support</p>
+                    <h2 id="assistant-title">Student Assistant</h2>
+                </div>
+                <span class="status-dot">Online help</span>
+            </div>
 
-        <h1>🎓 CampusAI</h1>
+            <p class="section-intro">Ask about attendance, exams, fees, hostel, certificates, placements, or scholarships.</p>
 
-        <p class="subtitle">
-            Smart Campus Assistant
-        </p>
+            <label for="question">Your question</label>
+            <textarea
+                id="question"
+                placeholder="How can I check my attendance?"
+                rows="5"></textarea>
 
-        <p>
-            Hello! How can I help you today?
-        </p>
+            <button id="askButton" class="primary-button" type="button">Ask CampusAI</button>
 
-        <textarea
-            id="question"
-            placeholder="Ask about attendance, exams, fees, hostel, certificates..."
-            rows="5">
-        </textarea>
+            <div class="response-box" aria-live="polite">
+                <h3>CampusAI Response</h3>
+                <div id="response" class="response-content">
+                    <p class="muted-text">Your answer will appear here.</p>
+                </div>
+            </div>
+        </section>
 
-        <button id="askButton">
-            Ask CampusAI
-        </button>
+        <section class="section-card" aria-labelledby="tracking-title">
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">02 / Follow-up</p>
+                    <h2 id="tracking-title">Ticket Tracking</h2>
+                </div>
+            </div>
 
-        <div class="response-box">
+            <p class="section-intro">Enter a ticket ID to see its current department, status, and creation time.</p>
 
-            <h3>CampusAI Response</h3>
+            <div class="inline-form">
+                <div class="input-group">
+                    <label for="ticketId">Ticket ID</label>
+                    <input id="ticketId" type="number" min="1" placeholder="e.g. 12">
+                </div>
+                <button id="trackButton" class="secondary-button" type="button">Track Ticket</button>
+            </div>
 
-            <p id="response">
-                Your answer will appear here.
-            </p>
+            <div id="trackingMessage" class="message" aria-live="polite"></div>
+            <div id="ticketDetails" class="ticket-details" aria-live="polite"></div>
+        </section>
 
-        </div>
+        <section class="section-card admin-section" aria-labelledby="admin-title">
+            <div class="section-heading admin-heading">
+                <div>
+                    <p class="section-label">03 / Operations</p>
+                    <h2 id="admin-title">Admin Dashboard</h2>
+                </div>
+                <button id="refreshButton" class="secondary-button" type="button">Refresh Tickets</button>
+            </div>
 
-    </div>
+            <div id="adminMessage" class="message" aria-live="polite"></div>
+
+            <div class="summary-grid" aria-label="Ticket summary">
+                <div class="summary-card">
+                    <span>Total Tickets</span>
+                    <strong id="totalTickets">0</strong>
+                </div>
+                <div class="summary-card pending-summary">
+                    <span>Pending</span>
+                    <strong id="pendingTickets">0</strong>
+                </div>
+                <div class="summary-card progress-summary">
+                    <span>In Progress</span>
+                    <strong id="inProgressTickets">0</strong>
+                </div>
+                <div class="summary-card resolved-summary">
+                    <span>Resolved</span>
+                    <strong id="resolvedTickets">0</strong>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Question</th>
+                            <th>Category</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ticketsTableBody">
+                        <tr>
+                            <td colspan="7" class="empty-state">No tickets loaded yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
-
 </body>
 </html>
