@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from backend.ai import classify_question
+from backend.knowledge_base import KNOWLEDGE_BASE
 
 app = FastAPI()
 
@@ -30,9 +31,11 @@ def read_root():
 @app.post("/ask")
 def ask_question(request: QuestionRequest):
     category = classify_question(request.question)
+    category_info = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["general"])
 
     return {
         "question": request.question,
         "category": category,
-        "answer": f"Your question belongs to the {category} category.",
+        "department": category_info["department"],
+        "answer": category_info["answer"],
     }
