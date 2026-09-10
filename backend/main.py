@@ -2,11 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from backend.ai import classify_question
+
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500", "http://localhost:5500"],
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
+    ],
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -24,7 +29,10 @@ def read_root():
 
 @app.post("/ask")
 def ask_question(request: QuestionRequest):
+    category = classify_question(request.question)
+
     return {
         "question": request.question,
-        "answer": "I received your question successfully.",
+        "category": category,
+        "answer": f"Your question belongs to the {category} category.",
     }
