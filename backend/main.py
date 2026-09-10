@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from backend.ai import classify_question, find_best_answer
+from backend.database import create_ticket
 from backend.knowledge_base import KNOWLEDGE_BASE
 
 app = FastAPI()
@@ -35,14 +36,25 @@ def ask_question(request: QuestionRequest):
         category = "general"
 
     category_info = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["general"])
-    answer = find_best_answer(request.question, category, KNOWLEDGE_BASE)
+    answer = None
+
+    if category != "general":
+        answer = find_best_answer(request.question, category, KNOWLEDGE_BASE)
+
+    ticket_id = None
 
     if answer is None:
-        answer = category_info["answer"]
+        answer = "Your question was forwarded to the appropriate department."
+        ticket_id = create_ticket(
+            request.question,
+            category,
+            category_info["department"],
+        )
 
     return {
         "question": request.question,
         "category": category,
         "department": category_info["department"],
         "answer": answer,
+        "ticket_id": ticket_id,
     }
