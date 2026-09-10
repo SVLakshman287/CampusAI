@@ -40,6 +40,15 @@ def read_root():
 
 @app.post("/ask")
 def ask_question(request: QuestionRequest):
+    if request.question.strip() == "":
+        raise HTTPException(status_code=400, detail="Question cannot be empty")
+
+    if len(request.question) > 500:
+        raise HTTPException(
+            status_code=400,
+            detail="Question must be 500 characters or fewer",
+        )
+
     category = classify_question(request.question)
     if category not in KNOWLEDGE_BASE:
         category = "general"
@@ -70,8 +79,16 @@ def ask_question(request: QuestionRequest):
 
 
 @app.get("/tickets/{ticket_id}")
-def read_ticket(ticket_id: int):
-    ticket = get_ticket(ticket_id)
+def read_ticket(ticket_id: str):
+    try:
+        ticket_number = int(ticket_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Ticket ID must be a positive integer")
+
+    if ticket_number <= 0:
+        raise HTTPException(status_code=400, detail="Ticket ID must be a positive integer")
+
+    ticket = get_ticket(ticket_number)
 
     if ticket is None:
         raise HTTPException(status_code=404, detail="Ticket not found")
@@ -85,7 +102,15 @@ def read_all_tickets():
 
 
 @app.put("/tickets/{ticket_id}/status")
-def change_ticket_status(ticket_id: int, request: TicketStatusRequest):
+def change_ticket_status(ticket_id: str, request: TicketStatusRequest):
+    try:
+        ticket_number = int(ticket_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Ticket ID must be a positive integer")
+
+    if ticket_number <= 0:
+        raise HTTPException(status_code=400, detail="Ticket ID must be a positive integer")
+
     allowed_statuses = ["Pending", "In Progress", "Resolved"]
 
     if request.status not in allowed_statuses:
@@ -94,13 +119,13 @@ def change_ticket_status(ticket_id: int, request: TicketStatusRequest):
             detail="Status must be Pending, In Progress, or Resolved",
         )
 
-    updated = update_ticket_status(ticket_id, request.status)
+    updated = update_ticket_status(ticket_number, request.status)
 
     if not updated:
         raise HTTPException(status_code=404, detail="Ticket not found")
 
     return {
         "message": "Ticket status updated successfully",
-        "ticket_id": ticket_id,
+        "ticket_id": ticket_number,
         "status": request.status,
     }
