@@ -3,130 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CampusAI - Smart Campus Assistant</title>
-
+    <title>CampusAI | Smart Campus Assistant</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <main class="container">
-        <header class="page-header">
-            <div>
-                <p class="eyebrow">Student services desk</p>
-                <h1>CampusAI</h1>
-                <p class="subtitle">A clear, quick way to get help with campus questions.</p>
-            </div>
-            <div class="header-mark" aria-hidden="true">CA</div>
-        </header>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="#home" data-view="home" aria-label="CampusAI home">
+                <span class="brand-mark">CA</span>
+                <span class="brand-copy"><strong>CampusAI</strong><small>Student support portal</small></span>
+            </a>
+            <div class="college-short">DVR &amp; Dr. HS MIC College of Technology</div>
+            <nav id="siteNav" class="site-nav" aria-label="Primary navigation"></nav>
+        </div>
+    </header>
 
-        <section class="section-card assistant-section" aria-labelledby="assistant-title">
-            <div class="section-heading">
-                <div>
-                    <p class="section-label">01 / Student support</p>
-                    <h2 id="assistant-title">Student Assistant</h2>
+    <main class="portal-shell">
+        <section id="homeView" class="view active-view" aria-labelledby="home-title">
+            <div class="home-hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">Student / development project</p>
+                    <p class="college-name">DVR &amp; Dr. HS MIC College of Technology</p>
+                    <p class="location">Kanchikacherla, Andhra Pradesh</p>
+                    <h1 id="home-title">CampusAI</h1>
+                    <p class="hero-subtitle">Smart Campus Assistant</p>
+                    <p class="hero-description">Personalized student support for every department.</p>
+                    <p class="hero-note">One place for student questions, campus support and request tracking.</p>
+                    <button class="primary-button hero-button" type="button" data-view="login">Ask CampusAI <span aria-hidden="true">-></span></button>
                 </div>
-                <span class="status-dot">Online help</span>
+                <div class="hero-panel">
+                    <span class="hero-panel-label">Project focus</span>
+                    <strong id="heroDepartment">Student Services<br>Portal</strong>
+                    <span class="hero-panel-line"></span>
+                    <span class="hero-panel-foot">A student development project for campus services</span>
+                </div>
             </div>
-
-            <p class="section-intro">Ask about attendance, exams, fees, hostel, certificates, placements, or scholarships.</p>
-
-            <label for="question">Your question</label>
-            <textarea
-                id="question"
-                placeholder="How can I check my attendance?"
-                rows="5"></textarea>
-
-            <button id="askButton" class="primary-button" type="button">Ask CampusAI</button>
-
-            <div class="response-box" aria-live="polite">
-                <h3>CampusAI Response</h3>
-                <div id="response" class="response-content">
-                    <p class="muted-text">Your answer will appear here.</p>
+            <div class="feature-grid">
+                <article class="feature-card"><span class="feature-number">01</span><h2>Ask Campus Questions</h2><p>Get focused help about everyday student services.</p></article>
+                <article class="feature-card"><span class="feature-number">02</span><h2>Get Department Support</h2><p>Unanswered requests reach the appropriate department.</p></article>
+                <article class="feature-card"><span class="feature-number">03</span><h2>Track Requests</h2><p>Follow a ticket from review through resolution.</p></article>
+                <article class="feature-card"><span class="feature-number">04</span><h2>Faster Student Services</h2><p>Find the next useful step without extra searching.</p></article>
+            </div>
+            <div class="how-section">
+                <div class="section-title-block"><p class="eyebrow">A simple path</p><h2>How CampusAI Works</h2></div>
+                <div class="steps-grid">
+                    <div class="step"><span>1</span><p>Ask a question</p></div>
+                    <div class="step"><span>2</span><p>CampusAI identifies the category</p></div>
+                    <div class="step"><span>3</span><p>Get an answer or create a support ticket</p></div>
+                    <div class="step"><span>4</span><p>Track the request until resolution</p></div>
                 </div>
             </div>
         </section>
 
-        <section class="section-card" aria-labelledby="tracking-title">
-            <div class="section-heading">
-                <div>
-                    <p class="section-label">02 / Follow-up</p>
-                    <h2 id="tracking-title">Ticket Tracking</h2>
-                </div>
-            </div>
-
-            <p class="section-intro">Enter a ticket ID to see its current department, status, and creation time.</p>
-
-            <div class="inline-form">
-                <div class="input-group">
-                    <label for="ticketId">Ticket ID</label>
-                    <input id="ticketId" type="number" min="1" placeholder="e.g. 12">
-                </div>
-                <button id="trackButton" class="secondary-button" type="button">Track Ticket</button>
-            </div>
-
-            <div id="trackingMessage" class="message" aria-live="polite"></div>
-            <div id="ticketDetails" class="ticket-details" aria-live="polite"></div>
-        </section>
-
-        <section class="section-card admin-section" aria-labelledby="admin-title">
-            <div class="section-heading admin-heading">
-                <div>
-                    <p class="section-label">03 / Operations</p>
-                    <h2 id="admin-title">Admin Dashboard</h2>
-                </div>
-                <button id="refreshButton" class="secondary-button" type="button">Refresh Tickets</button>
-            </div>
-
-            <div class="input-group">
-                <label for="adminKey">Admin Key</label>
-                <input id="adminKey" type="password" placeholder="Enter admin key">
-            </div>
-
-            <div id="adminMessage" class="message" aria-live="polite"></div>
-
-            <div class="summary-grid" aria-label="Ticket summary">
-                <div class="summary-card">
-                    <span>Total Tickets</span>
-                    <strong id="totalTickets">0</strong>
-                </div>
-                <div class="summary-card pending-summary">
-                    <span>Pending</span>
-                    <strong id="pendingTickets">0</strong>
-                </div>
-                <div class="summary-card progress-summary">
-                    <span>In Progress</span>
-                    <strong id="inProgressTickets">0</strong>
-                </div>
-                <div class="summary-card resolved-summary">
-                    <span>Resolved</span>
-                    <strong id="resolvedTickets">0</strong>
-                </div>
-            </div>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Question</th>
-                            <th>Category</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ticketsTableBody">
-                        <tr>
-                            <td colspan="7" class="empty-state">No tickets loaded yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <section id="loginView" class="view auth-view" aria-labelledby="login-title">
+            <div class="auth-layout">
+                <div class="auth-copy"><p class="eyebrow">Student portal</p><h1 id="login-title">Welcome back.</h1><p>Log in to ask questions, view your own tickets, and see support for your department.</p></div>
+                <form id="studentLoginForm" class="auth-card panel-card">
+                    <p class="eyebrow">Student login</p><h2>Sign in</h2>
+                    <label for="loginValue">Username, email or Student ID</label><input id="loginValue" required autocomplete="username">
+                    <label for="loginPassword">Password</label><input id="loginPassword" type="password" required autocomplete="current-password">
+                    <div class="captcha-box"><span id="loginCaptchaQuestion">Loading verification...</span><input id="loginCaptchaAnswer" inputmode="numeric" placeholder="Answer" required></div>
+                    <div id="loginMessage" class="message" aria-live="polite"></div>
+                    <button class="primary-button" type="submit">Login</button><button id="openRegisterButton" class="text-button" type="button">Create Student Account</button>
+                </form>
             </div>
         </section>
+
+        <section id="registerView" class="view auth-view" aria-labelledby="register-title">
+            <div class="auth-layout">
+                <div class="auth-copy"><p class="eyebrow">Student portal</p><h1 id="register-title">Create your account.</h1><p>Select your department so CampusAI can personalize your student experience.</p></div>
+                <form id="registrationForm" class="auth-card panel-card">
+                    <p class="eyebrow">Student registration</p><h2>New student account</h2>
+                    <div class="form-grid"><div><label for="fullName">Full Name</label><input id="fullName" required></div><div><label for="studentId">Student ID</label><input id="studentId" required></div></div>
+                    <label for="registerUsername">Username or Email</label><input id="registerUsername" required autocomplete="username">
+                    <div class="form-grid"><div><label for="registerPassword">Password</label><input id="registerPassword" type="password" minlength="8" required autocomplete="new-password"></div><div><label for="confirmPassword">Confirm Password</label><input id="confirmPassword" type="password" minlength="8" required autocomplete="new-password"></div></div>
+                    <label for="department">Department</label><select id="department" required><option value="">Select a department</option><option>Computer Science and Engineering</option><option>Electronics and Communication Engineering</option><option>Electrical and Electronics Engineering</option><option>Mechanical Engineering</option><option>Civil Engineering</option><option>Information Technology</option><option>Artificial Intelligence and Data Science</option><option>Other</option></select>
+                    <div id="otherDepartmentGroup" class="hidden"><label for="otherDepartment">Your Department</label><input id="otherDepartment"></div>
+                    <div class="captcha-box"><span id="registerCaptchaQuestion">Loading verification...</span><input id="registerCaptchaAnswer" inputmode="numeric" placeholder="Answer" required></div>
+                    <div id="registerMessage" class="message" aria-live="polite"></div><button class="primary-button" type="submit">Create Account</button><button id="backToLoginButton" class="text-button" type="button">Back to Student Login</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="adminLoginView" class="view auth-view admin-login-view" aria-labelledby="admin-login-title">
+            <div class="auth-layout">
+                <div class="auth-copy"><p class="admin-eyebrow">Restricted access</p><h1 id="admin-login-title">Operations control.</h1><p>Admin access is separate from the student portal and is required for ticket management.</p></div>
+                <form id="adminLoginForm" class="auth-card admin-auth-card panel-card">
+                    <p class="admin-eyebrow">CampusAI operations</p><h2>Admin Login</h2><label for="adminUsername">Admin Username</label><input id="adminUsername" required autocomplete="username"><label for="adminPassword">Admin Password</label><input id="adminPassword" type="password" required autocomplete="current-password">
+                    <div class="captcha-box"><span id="adminCaptchaQuestion">Loading verification...</span><input id="adminCaptchaAnswer" inputmode="numeric" placeholder="Answer" required></div><div id="adminLoginMessage" class="message" aria-live="polite"></div><button class="primary-button" type="submit">Login</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="studentView" class="view" aria-labelledby="student-title">
+            <div class="view-heading"><div><p class="eyebrow">Student support</p><h1 id="student-title">Student Assistant</h1><p>Ask a question in your own words.</p></div><span id="studentGreeting" class="view-kicker"></span></div>
+            <div class="student-layout">
+                <div class="assistant-card panel-card"><label for="question">Your question</label><textarea id="question" placeholder="How can I check my attendance?" rows="6"></textarea><div class="example-block"><span class="field-label">Try an example</span><div class="chip-list"><button class="question-chip" type="button" data-question="How can I check my attendance?">Attendance</button><button class="question-chip" type="button" data-question="When are my semester exams?">Examinations</button><button class="question-chip" type="button" data-question="How can I pay my college fees?">Fees</button><button class="question-chip" type="button" data-question="How can I apply for a certificate?">Certificates</button><button class="question-chip" type="button" data-question="How can I check placement information?">Placements</button><button class="question-chip" type="button" data-question="How can I apply for a scholarship?">Scholarships</button></div></div><button id="askButton" class="primary-button" type="button">Ask CampusAI <span aria-hidden="true">-></span></button><div id="response" class="assistant-result" aria-live="polite"><p class="muted-text">Your answer will appear here.</p></div></div>
+                <aside class="category-panel panel-card"><p class="eyebrow">Campus services</p><h2>What can we help with?</h2><div class="category-list"><button type="button" class="category-link" data-question="How can I check my attendance?"><span>◌</span>Attendance</button><button type="button" class="category-link" data-question="When are my semester exams?"><span>□</span>Examinations</button><button type="button" class="category-link" data-question="How can I pay my college fees?"><span>₹</span>Fees</button><button type="button" class="category-link" data-question="What are the hostel timings?"><span>⌂</span>Hostel</button><button type="button" class="category-link" data-question="How can I apply for a certificate?"><span>◇</span>Certificates</button><button type="button" class="category-link" data-question="How can I check placement information?"><span>↗</span>Placements</button><button type="button" class="category-link" data-question="How can I apply for a scholarship?"><span>★</span>Scholarships</button><button type="button" class="category-link" data-question="Where can I find my course syllabus?"><span>≡</span>Academics</button></div></aside>
+            </div>
+        </section>
+
+        <section id="ticketsView" class="view" aria-labelledby="tickets-title"><div class="view-heading"><div><p class="eyebrow">Follow-up</p><h1 id="tickets-title">My Tickets</h1><p>Track your campus requests.</p></div></div><div class="tracking-card panel-card"><div class="form-row"><div class="input-group"><label for="ticketId">Ticket ID</label><input id="ticketId" type="number" min="1" placeholder="e.g. 12"></div><button id="trackButton" class="secondary-button" type="button">Track Ticket</button></div><div id="trackingMessage" class="message" aria-live="polite"></div></div><div id="ticketDetails" class="ticket-result panel-card" aria-live="polite"><p class="muted-text">Enter one of your ticket IDs to view details.</p></div></section>
+        <section id="profileView" class="view" aria-labelledby="profile-title"><div class="view-heading"><div><p class="eyebrow">Your account</p><h1 id="profile-title">Student Profile</h1><p>Your selected department personalizes CampusAI.</p></div></div><div class="profile-card panel-card"><p class="eyebrow">Signed in student</p><h2 id="profileName">Student</h2><div class="profile-grid"><div><span class="field-label">Department</span><strong id="profileDepartment"></strong></div><div><span class="field-label">Student ID</span><strong id="profileStudentId"></strong></div></div></div></section>
+
+        <section id="adminView" class="view admin-view" aria-labelledby="admin-title">
+            <div class="admin-topline"><div><p class="admin-eyebrow">CAMPUSAI OPERATIONS</p><h1 id="admin-title">Admin Dashboard</h1><p>Campus-wide Student Services</p></div><span class="view-kicker">CONTROL ROOM</span></div>
+            <div class="admin-toolbar panel-card"><button id="refreshButton" class="secondary-button" type="button">Refresh Tickets</button><div id="adminMessage" class="message" aria-live="polite"></div></div>
+            <div class="summary-grid" aria-label="Ticket summary"><div class="summary-card total-summary"><span>Total Tickets</span><strong id="totalTickets">0</strong></div><div class="summary-card pending-summary"><span>Pending</span><strong id="pendingTickets">0</strong></div><div class="summary-card progress-summary"><span>In Progress</span><strong id="inProgressTickets">0</strong></div><div class="summary-card resolved-summary"><span>Resolved</span><strong id="resolvedTickets">0</strong></div></div>
+            <div class="admin-filters panel-card"><input id="ticketSearch" aria-label="Search tickets" placeholder="Search tickets"><select id="departmentFilter" aria-label="Filter by department"><option value="">All departments</option></select><select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select><select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Pending</option><option>In Progress</option><option>Resolved</option></select><button id="clearFiltersButton" class="text-button" type="button">Clear Filters</button></div>
+            <div class="admin-overview-grid"><div class="overview-card"><span class="field-label">Most common category</span><strong id="commonCategory">No data yet</strong></div><div class="overview-card"><span class="field-label">Top receiving department</span><strong id="topDepartment">No data yet</strong></div><div class="overview-card"><span class="field-label">Unresolved requests</span><strong id="unresolvedTickets">0</strong></div></div>
+            <div class="department-overview panel-card"><div><p class="eyebrow">Coverage</p><h2>Department Overview</h2></div><div id="departmentOverview" class="department-list"></div></div>
+            <div class="table-card panel-card"><div class="table-heading"><div><p class="eyebrow">Recent requests</p><h2>All Tickets</h2></div></div><div class="table-wrapper"><table><thead><tr><th>ID</th><th>Student</th><th>Department</th><th>Question</th><th>Category</th><th>Status</th><th>Created</th><th>Action</th></tr></thead><tbody id="ticketsTableBody"><tr><td colspan="8" class="empty-state">No tickets loaded yet.</td></tr></tbody></table></div></div>
+    </section>
     </main>
-
+    <footer class="site-footer"><span>CampusAI / Student services workspace</span><span>Department-neutral support portal</span></footer>
     <script src="script.js"></script>
 </body>
 </html>
