@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -11,6 +11,8 @@ from backend.database import (
 )
 from backend.knowledge_base import KNOWLEDGE_BASE
 
+ADMIN_KEY = "CampusAI-Admin-2026"
+
 app = FastAPI()
 
 app.add_middleware(
@@ -20,7 +22,7 @@ app.add_middleware(
         "http://localhost:5500"
     ],
     allow_methods=["GET", "POST", "PUT", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "X-Admin-Key"],
 )
 
 
@@ -102,7 +104,15 @@ def read_all_tickets():
 
 
 @app.put("/tickets/{ticket_id}/status")
-def change_ticket_status(ticket_id: str, request: TicketStatusRequest):
+def change_ticket_status(
+    ticket_id: str,
+    request: TicketStatusRequest,
+    admin_key: str = Header(default=None, alias="X-Admin-Key"),
+):
+    # Demo admin protection only; production should use proper authentication and securely stored secrets.
+    if admin_key != ADMIN_KEY:
+        raise HTTPException(status_code=403, detail="Invalid or missing admin key")
+
     try:
         ticket_number = int(ticket_id)
     except ValueError:

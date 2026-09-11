@@ -9,6 +9,7 @@ const trackingMessage = document.getElementById("trackingMessage");
 const ticketDetails = document.getElementById("ticketDetails");
 const refreshButton = document.getElementById("refreshButton");
 const adminMessage = document.getElementById("adminMessage");
+const adminKeyInput = document.getElementById("adminKey");
 const ticketsTableBody = document.getElementById("ticketsTableBody");
 
 const totalTickets = document.getElementById("totalTickets");
@@ -224,6 +225,13 @@ async function refreshTickets() {
 }
 
 async function updateTicketStatus(ticketId, status, button) {
+    const adminKey = adminKeyInput.value.trim();
+
+    if (adminKey === "") {
+        showMessage(adminMessage, "Please enter the admin key before updating a ticket.", "error");
+        return;
+    }
+
     button.disabled = true;
     showMessage(adminMessage, "Updating ticket status...", "");
 
@@ -231,10 +239,15 @@ async function updateTicketStatus(ticketId, status, button) {
         const response = await fetch(`${API_URL}/tickets/${encodeURIComponent(ticketId)}/status`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-Admin-Key": adminKey
             },
             body: JSON.stringify({ status: status })
         });
+
+        if (response.status === 403) {
+            throw new Error("Invalid or missing admin key.");
+        }
 
         if (!response.ok) {
             throw new Error("Unable to update ticket status.");
@@ -243,7 +256,7 @@ async function updateTicketStatus(ticketId, status, button) {
         showMessage(adminMessage, "Ticket status updated.", "success");
         await refreshTickets();
     } catch (error) {
-        showMessage(adminMessage, "Unable to update ticket. Check the backend connection.", "error");
+        showMessage(adminMessage, error.message || "Unable to update ticket. Check the backend connection.", "error");
     } finally {
         button.disabled = false;
     }
