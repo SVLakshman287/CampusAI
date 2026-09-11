@@ -44,7 +44,7 @@ button:disabled { cursor: wait; opacity: 0.6; transform: none; }
 .header-inner {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 20px;
     max-inline-size: 1240px;
     min-block-size: 76px;
     margin: 0 auto;
@@ -52,6 +52,7 @@ button:disabled { cursor: wait; opacity: 0.6; transform: none; }
 }
 
 .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.college-logo { inline-size: 94px; block-size: 50px; object-fit: contain; object-position: center; flex: 0 0 auto; }
 .brand-mark { display: grid; inline-size: 39px; block-size: 39px; place-items: center; background: var(--blue); color: #fff; font: 700 0.75rem "Trebuchet MS", sans-serif; letter-spacing: 0.08em; }
 .brand-copy { display: grid; gap: 3px; }
 .brand-copy strong { font-size: 1.15rem; line-height: 1; }
@@ -64,7 +65,7 @@ button:disabled { cursor: wait; opacity: 0.6; transform: none; }
 .portal-shell { max-inline-size: 1240px; margin: 0 auto; padding: 56px 24px 72px; }
 .view { display: none; animation: view-in 300ms ease both; }
 .view.active-view { display: block; }
-.home-hero { display: grid; grid-template-columns: minmax(0, 1fr) 330px; align-items: center; gap: 56px; min-block-size: 475px; }
+.home-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 0.95fr); align-items: stretch; gap: 38px; min-block-size: 450px; }
 .hero-copy { max-inline-size: 720px; }
 .eyebrow, .admin-eyebrow { margin: 0 0 12px; color: var(--blue); font: 700 0.7rem "Trebuchet MS", sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
 .college-name { margin: 0 0 3px; font-size: 1.2rem; font-weight: 700; }
@@ -75,7 +76,10 @@ h2 { margin-block-end: 8px; font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 
 .hero-subtitle { margin: 0 0 17px; color: var(--blue); font: 700 1.16rem "Trebuchet MS", sans-serif; }
 .hero-description { max-inline-size: 580px; margin: 0 0 15px; font-size: clamp(1.15rem, 2vw, 1.48rem); line-height: 1.35; }
 .hero-note { max-inline-size: 650px; margin: 0 0 27px; color: var(--muted); line-height: 1.65; }
-.hero-panel { display: grid; gap: 15px; min-block-size: 290px; padding: 30px; align-content: end; background: var(--navy); color: #fff; box-shadow: var(--shadow); }
+.hero-panel { position: relative; display: grid; min-block-size: 450px; overflow: hidden; background: var(--navy); color: #fff; box-shadow: var(--shadow); border-radius: 6px; }
+.campus-hero-image { position: absolute; inset-inline: 0; inset-block-start: -24%; inline-size: 100%; block-size: 148%; object-fit: cover; object-position: right bottom; }
+.hero-panel-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 43, 58, 0.04) 20%, rgba(23, 43, 58, 0.88) 100%); }
+.hero-panel-content { position: relative; z-index: 1; display: grid; gap: 15px; min-block-size: 450px; padding: 34px; align-content: end; }
 .hero-panel-label { color: #a9d3db; font: 700 0.7rem "Trebuchet MS", sans-serif; letter-spacing: 0.15em; text-transform: uppercase; }
 .hero-panel strong { font-size: 2.1rem; line-height: 1.02; }
 .hero-panel-line { inline-size: 50px; block-size: 3px; background: var(--yellow); }
@@ -183,7 +187,7 @@ tbody tr:hover { background: #f7fafb; }
 
 @media (max-width: 940px) {
     .college-short { display: none; }
-    .home-hero { grid-template-columns: minmax(0, 1fr) 270px; gap: 30px; }
+    .home-hero { grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr); gap: 28px; }
     .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .how-section { grid-template-columns: 1fr; }
 }
@@ -195,7 +199,9 @@ tbody tr:hover { background: #f7fafb; }
     .portal-shell { padding: 38px 16px 56px; }
     .home-hero, .student-layout { grid-template-columns: 1fr; }
     .home-hero { min-block-size: auto; gap: 30px; }
-    .hero-panel { min-block-size: 220px; }
+    .hero-panel { min-block-size: 360px; }
+    .hero-panel-content { min-block-size: 360px; padding: 26px; }
+    .college-logo { inline-size: 76px; block-size: 40px; }
     .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .view-heading, .admin-topline, .table-heading { align-items: flex-start; flex-direction: column; }
     .form-row, .admin-toolbar, .summary-grid, .admin-overview-grid { grid-template-columns: 1fr; }
